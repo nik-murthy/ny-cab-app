@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+
+  #Database
+  ny-cab-data:
+    build: ./ny-cab-data
+    container_name: ny-cab-data
+    restart: always
+    environment:
+      MYSQL_DATABASE: ny_cab_data
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - '3306:3306'
+    volumes:
+      - ny-cab-db:/var/lib/mysql
+  
+  #API
+  ny-cab-api:
+    build: ./ny-cab-api
+    restart: on-failure
+    ports:
+      - '10222:8080'
+    depends_on: 
+      - ny-cab-data 
+    environment:
+      MYSQL_HOST: ny-cab-data
+      MYSQL_PORT: 3306
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_USERNAME: ${MYSQL_USERNAME}
+
+volumes:
+  ny-cab-db:
