@@ -10,11 +10,13 @@ import java.util.List;
 
 public interface CabDataRepository extends CrudRepository<CabTripData, String> {
 
-    @Query("select c from CabTripData c where c.medallion=:medallion")
-    List<CabTripData> findByMedallion(@Param("medallion") String medallion);
-
-    @Query("select c from CabTripData c where c.medallion = :medallion " +
+    @Query("select c from CabTripData c where c.medallion in (:medallions) " +
             "and date(pickupDatetime) = :date")
-    List<CabTripData> findByMedallionAndDate(@Param("medallion") String medallion,
-                                             @Param("date") Date date);
+    List<CabTripData> findByMedallionsAndDate(@Param("medallions") List<String> medallions,
+                                              @Param("date") Date date);
+
+//    @Query("select c from CabTripData c where c.medallion = :medallion " +
+//            "and date(pickupDatetime) = :date")
+//    List<CabTripData> findByMedallionAndDate(@Param("medallion") String medallion,
+//                                             @Param("date") Date date);
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CabDataRequestHandlerIntf {
 
-    List<CabTripDataResponse> getByMedallion(String medallion);
+    List<CabTripDataResponse> getByMedallionsAndDate(List<String> medallions, Date date);
 
-    List<CabTripDataResponse> getByMedallionAndDate(String medallion, Date date);
+    //List<CabTripDataResponse> getByMedallionAndDate(String medallion, Date date);
 }

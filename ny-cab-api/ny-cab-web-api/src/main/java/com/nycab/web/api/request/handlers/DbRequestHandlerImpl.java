@@ -21,14 +21,15 @@ public class DbRequestHandlerImpl implements DbRequestHandlerIntf {
     private String dbApiUrl;
 
     @Override
-    public List<CabTripDataResponse> getByMedallion(String medallion) {
+    public List<CabTripDataResponse> getByMedallionsAndDate(List<String> medallions, String date) {
 
         Map<String, Object> params = new HashMap<>();
-        params.put("medallion", medallion);
+        params.put("medallions", medallions);
+        params.put("date", date);
 
         CabTripDataResponse[] trips = (CabTripDataResponse[]) uriHelper.getFromUri(
                 UriRequest.of(dbApiUrl,
-                ApplicationConstants.DB_GET_BY_MEDALLION,
+                ApplicationConstants.DB_GET_BY_MEDALLIONS_AND_DATE,
                 CabTripDataResponse[].class,
                 HttpMethod.GET,
                 Optional.of(params))).getBody();

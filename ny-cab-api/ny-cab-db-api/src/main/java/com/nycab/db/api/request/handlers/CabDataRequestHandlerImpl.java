@@ -20,16 +20,8 @@ public class CabDataRequestHandlerImpl implements CabDataRequestHandlerIntf {
     private CabDataHelperIntf cabDataHelperIntf;
 
     @Override
-    public List<CabTripDataResponse> getByMedallion(String medallion) {
-        return cabDataRepository.findByMedallion(medallion)
-                .stream()
-                .map(cabDataHelperIntf::mapToResponseObj)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CabTripDataResponse> getByMedallionAndDate(String medallion, Date date) {
-        return cabDataRepository.findByMedallionAndDate(medallion, date)
+    public List<CabTripDataResponse> getByMedallionsAndDate(List<String> medallions, Date date) {
+        return cabDataRepository.findByMedallionsAndDate(medallions, date)
                 .stream()
                 .map(cabDataHelperIntf::mapToResponseObj)
                 .collect(Collectors.toList());

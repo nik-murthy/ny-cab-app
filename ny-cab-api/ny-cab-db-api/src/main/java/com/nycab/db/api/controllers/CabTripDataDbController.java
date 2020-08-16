@@ -8,8 +8,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 public class CabTripDataDbController {
@@ -17,18 +20,16 @@ public class CabTripDataDbController {
     @Autowired
     private CabDataRequestHandlerIntf cabDataRequestHandlerIntf;
 
-    @GetMapping(value = ApplicationConstants.DB_GET_BY_MEDALLION)
-    public ResponseEntity<List<CabTripDataResponse>> getByMedallion(@RequestParam String medallion) {
-        return ResponseEntity.ok(cabDataRequestHandlerIntf.getByMedallion(medallion));
+    @GetMapping(value = ApplicationConstants.DB_GET_BY_MEDALLIONS_AND_DATE)
+    public ResponseEntity getByMedallion(@RequestParam("medallions") List<String> medallions,
+                                         @RequestParam("date") String date) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            Date inputDate = simpleDateFormat.parse(date);
+            return ResponseEntity.ok(cabDataRequestHandlerIntf.getByMedallionsAndDate(medallions, inputDate));
+        } catch (ParseException exp) {
+            return ResponseEntity.badRequest().body("Incorrect date format supplied");
+        }
     }
 
-    @RequestMapping(value = ApplicationConstants.WEB_GET_BY_MEDALLION_AND_DATE)
-    public ResponseEntity<List<CabTripDataResponse>> getByMedallionAndDate(@PathVariable String medallion,
-                                                                           @PathVariable
-                                                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-                                                                                   Date date) {
-        System.out.println("medallion = " + medallion);
-        System.out.println("date = " + date);
-        return ResponseEntity.ok(cabDataRequestHandlerIntf.getByMedallionAndDate(medallion, date));
-    }
 }
