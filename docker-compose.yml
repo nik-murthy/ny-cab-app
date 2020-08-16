@@ -16,12 +16,14 @@ services:
     volumes:
       - ny-cab-db:/var/lib/mysql
   
-  #API
-  ny-cab-api:
-    build: ./ny-cab-api
+  #DB-API
+  ny-cab-db-api:    
+    build:
+      context: ./ny-cab-api
+      dockerfile: ./ny-cab-db-api/Dockerfile
     restart: on-failure
     ports:
-      - '10222:8080'
+      - '7001:7001'
     depends_on: 
       - ny-cab-data 
     environment:
@@ -29,6 +31,21 @@ services:
       MYSQL_PORT: 3306
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_USERNAME: ${MYSQL_USERNAME}
+
+  #WEB-API
+  ny-cab-web-api:    
+    build:
+      context: ./ny-cab-api
+      dockerfile: ./ny-cab-web-api/Dockerfile
+    restart: on-failure
+    ports:
+      - '7002:7002'
+    depends_on: 
+      - ny-cab-data 
+      - ny-cab-db-api
+    environment:
+       WAIT_HOSTS: ny-cab-data:3306, ny-cab-db-api:7001
+       DB_API_URL: http://ny-cab-db-api:7001
 
 volumes:
   ny-cab-db:
