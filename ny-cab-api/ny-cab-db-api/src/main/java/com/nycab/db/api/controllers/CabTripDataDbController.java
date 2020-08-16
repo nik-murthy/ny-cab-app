@@ -6,25 +6,23 @@ import com.nycab.db.api.request.handlers.CabDataRequestHandlerIntf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
-@RestController 
+@RestController
 public class CabTripDataDbController {
 
     @Autowired
     private CabDataRequestHandlerIntf cabDataRequestHandlerIntf;
 
-    @RequestMapping(value = ApplicationConstants.GET_BY_MEDALLION_MAPPING)
-    public ResponseEntity<List<CabTripDataResponse>> getByMedallion(@PathVariable String medallion) {
+    @GetMapping(value = ApplicationConstants.DB_GET_BY_MEDALLION)
+    public ResponseEntity<List<CabTripDataResponse>> getByMedallion(@RequestParam String medallion) {
         return ResponseEntity.ok(cabDataRequestHandlerIntf.getByMedallion(medallion));
     }
 
-    @RequestMapping(value = ApplicationConstants.GET_BY_MEDALLION_AND_DATE_MAPPING)
+    @RequestMapping(value = ApplicationConstants.WEB_GET_BY_MEDALLION_AND_DATE)
     public ResponseEntity<List<CabTripDataResponse>> getByMedallionAndDate(@PathVariable String medallion,
                                                                            @PathVariable
                                                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
