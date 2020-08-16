@@ -7,4 +7,7 @@ public class ApplicationConstants {
 
     //DB API Controller Mappings
     public static final String DB_GET_BY_MEDALLIONS_AND_DATE = "/db/medallions";
+
+    //Cache API Controller Mappings
+    public static final String CACHE_GET_BY_MEDALLIONS_AND_DATE = "/cache/medallions";
 }

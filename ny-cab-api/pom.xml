@@ -11,6 +11,7 @@
     <modules>
         <module>ny-cab-db-api</module>
         <module>ny-cab-web-api</module>
+        <module>ny-cab-redis-api</module>
         <module>ny-cab-commons</module>
     </modules>
 

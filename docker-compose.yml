@@ -47,5 +47,12 @@ services:
        WAIT_HOSTS: ny-cab-data:3306, ny-cab-db-api:7001
        DB_API_URL: http://ny-cab-db-api:7001
 
+  #Redis Cache
+  ny-cab-redis-cache:
+    image: "redis"
+    ports:
+      - "6379:6379"
+
+
 volumes:
   ny-cab-db:
