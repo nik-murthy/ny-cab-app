@@ -1,5 +1,9 @@
 package com.nycab.db.api.entities;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
@@ -167,5 +171,39 @@ public class CabTripData implements Serializable {
 
     public void setDropoffLatitude(Double dropoffLatitude) {
         this.dropoffLatitude = dropoffLatitude;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof CabTripData)) {
+            return false;
+        }
+        CabTripData cabTripData = (CabTripData) obj;
+
+        if (this.medallion != null
+                && cabTripData.medallion != null
+                && !cabTripData.medallion.equals(this.medallion)) {
+            return false;
+        }
+
+        if (this.hackLicense != null
+                && cabTripData.hackLicense != null
+                && !cabTripData.hackLicense.equals(this.hackLicense)) {
+            return false;
+        }
+
+        if (this.pickupDatetime != null
+                && cabTripData.getPickupDatetime() != null
+                && !cabTripData.pickupDatetime.equals(this.pickupDatetime)) {
+            return false;
+        }
+
+        if (this.tripDistance != null
+                && cabTripData.tripDistance != null
+                && !cabTripData.tripDistance.equals(this.tripDistance)) {
+            return false;
+        }
+
+        return true;
     }
 }
