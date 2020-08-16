@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class DbRequestHandlerImpl implements DbRequestHandlerIntf {
@@ -24,8 +25,10 @@ public class DbRequestHandlerImpl implements DbRequestHandlerIntf {
     public List<CabTripDataResponse> getByMedallionsAndDate(List<String> medallions, String date) {
 
         Map<String, Object> params = new HashMap<>();
-        params.put("medallions", medallions);
+
         params.put("date", date);
+        params.put("medallions", medallions.stream()
+                .collect(Collectors.joining(",")));
 
         CabTripDataResponse[] trips = (CabTripDataResponse[]) uriHelper.getFromUri(
                 UriRequest.of(dbApiUrl,
