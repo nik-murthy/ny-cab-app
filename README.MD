@@ -55,3 +55,5 @@ While there is room for improvement, this project provides a good starting point
 The API is designed to query the underlying data based on medallion and date. The API should "also" accept multiple medallions. The assumption here is that there is no endpoint which accepts only multiple medallions and no date. 
 
 Hence, instead of creating two endpoints for one and many, there is a single endpoints that works for both the cases of one medallion plus date, and multiple medallions plus date.
+
+The data has duplicate entries. Hence, in the ny-cab-db-api project, the entity class overrides the equals method, and set of unique trips is returned.
