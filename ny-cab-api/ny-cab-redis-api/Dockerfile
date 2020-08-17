@@ -2,6 +2,7 @@
 # Build stage
 #
 FROM maven:3.6.0-jdk-11-slim AS build
+
 ENV HOME=/home/usr/app
 
 RUN mkdir -p $HOME
@@ -17,10 +18,10 @@ COPY ny-cab-commons/pom.xml $HOME/ny-cab-commons
 
 RUN mvn install:install-file -Dfile=$HOME/ny-cab-commons/commons-0.0.1-SNAPSHOT.jar -DpomFile=$HOME/ny-cab-commons/pom.xml
 
-#Now install the package the web api app
-COPY ny-cab-web-api/src $HOME/src 
+#Now install the package the redis api app
+COPY ny-cab-redis-api/src $HOME/src 
 
-COPY ny-cab-web-api/pom.xml $HOME
+COPY ny-cab-redis-api/pom.xml $HOME
 
 RUN mvn package -DskipTests
 
@@ -29,6 +30,6 @@ RUN mvn package -DskipTests
 #
 FROM openjdk:11-jre-slim
 ENV HOME=/home/usr/app
-COPY --from=build $HOME/target/web.api-0.0.1-SNAPSHOT.jar /usr/local/lib/web-api.jar
+COPY --from=build $HOME/target/redis.api-0.0.1-SNAPSHOT.jar /usr/local/lib/redis-api.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/usr/local/lib/web-api.jar"]
+ENTRYPOINT ["java","-jar","/usr/local/lib/redis-api.jar"]
