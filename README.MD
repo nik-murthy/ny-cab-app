@@ -49,3 +49,8 @@ All API response objects are segregated in a separate project, all database oper
 - Docker images can be further investigated for optimizations in size.
 
 While there is room for improvement, this project provides a good starting point to building and enhancing an API.
+
+# Assumptions
+The API is designed to query the underlying data based on medallion and date. The API should "also" accept multiple medallions. The assumption here is that there is no endpoint which accepts only multiple medallions and no date. 
+
+Hence, instead of creating two endpoints for one and many, there is a single endpoints that works for both the cases of one medallion plus date, and multiple medallions plus date.
