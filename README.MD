@@ -43,6 +43,7 @@ All API response objects are segregated in a separate project, all database oper
 - Cache clear functionality needs to be properly implemented.
 - Input validation in the ny-cab-web-api project is necessary.
 - API documentation is necessary.
+- docker-compose.yml can be augmented with wait-for-it scripts for better orchestration.
 - A central repository for artifacts, such as the commons project, will speed up build time as currently the commons project is being manually installed for each project.
 - API can be made secure through Spring Security. For example, cross origin requests can be limited and database methods can be protected by roles.
 - The solution consists of minimal test cases as most of the logic deals with translation of data between objects.
