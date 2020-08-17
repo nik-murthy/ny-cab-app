@@ -20,6 +20,7 @@ Unless explicitly requested, all requests are sent to the cache. If an entry is 
 
 # Steps To Run
 - Clone repo.
+- At the root of the repo, where the docker-compose.yml file is present, create a .env file. Entries are private and shared in an email.
 - ny-cab-commons project is required by the other projects. It needs to be 'jar'-ed.
 - Navigate to ny-cab-api/ny-cab-commons in a terminal window and run ```mvn clean install```.
 - That should create the SNAPSHOT jar in the target folder and will be picked up by builds of other projects.
