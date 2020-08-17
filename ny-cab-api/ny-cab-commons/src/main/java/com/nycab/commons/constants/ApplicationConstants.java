@@ -11,5 +11,5 @@ public class ApplicationConstants {
 
     //Cache API Controller Mappings
     public static final String CACHE_GET_BY_MEDALLIONS_AND_DATE = "/cache/medallions";
-
+    public static final String CACHE_FLUSH_CACHE = "/cache/flush";
 }

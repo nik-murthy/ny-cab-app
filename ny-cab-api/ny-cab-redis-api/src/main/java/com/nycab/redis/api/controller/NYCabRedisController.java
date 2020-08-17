@@ -5,6 +5,7 @@ import com.nycab.commons.dto.CabTripDataResponse;
 import com.nycab.redis.api.client.NyCabCacheIntf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +21,10 @@ public class NYCabRedisController {
     public List<CabTripDataResponse> getByMedallionAndDate(@RequestParam("medallions") String medallions,
                                                            @RequestParam("date") String date) {
         return nyCabCacheIntf.getByMedallionAndDate(medallions, date);
+    }
+
+    @PostMapping(value = ApplicationConstants.CACHE_FLUSH_CACHE)
+    public void clearCache() {
+        nyCabCacheIntf.clearCache();
     }
 }

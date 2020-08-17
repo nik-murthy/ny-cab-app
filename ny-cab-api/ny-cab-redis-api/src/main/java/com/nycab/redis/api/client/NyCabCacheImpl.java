@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisShardInfo;
 
 import java.util.*;
 
@@ -27,6 +29,15 @@ public class NyCabCacheImpl implements NyCabCacheIntf {
 
     @Value("${db.api.url}")
     private String dbApiUrl;
+
+    @Value("${nycab.redis.url}")
+    private String redisHost;
+
+    @Value(("${nycab.redis.port}"))
+    private Integer redisPort;
+
+    @Value("${nycab.redis.password")
+    private String redisPassword;
 
     @Override
     public List<CabTripDataResponse> getByMedallionAndDate(String medallions, String date) {
@@ -51,6 +62,16 @@ public class NyCabCacheImpl implements NyCabCacheIntf {
                 return getByMedallionAndDateFromDb(medallions, date);
             }
         }
+    }
+
+    @Override
+    public void clearCache() {
+        JedisShardInfo jedisShardInfo = new JedisShardInfo(redisHost, redisPort);
+        jedisShardInfo.setUser("default");
+        jedisShardInfo.setPassword(redisPassword);
+        Jedis jedis =  new Jedis(jedisShardInfo);
+        jedis.connect();
+        jedis.flushAll();
     }
 
     private List<CabTripDataResponse> getByMedallionAndDateFromDb(String medallions, String date) {
