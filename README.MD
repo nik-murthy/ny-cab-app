@@ -27,6 +27,11 @@ Unless explicitly requested, all requests are sent to the cache. If an entry is 
 - Run ```docker-compose up``` to bring up all services.
 - Run ```docker-compose down``` to bring down all services.
 
+When the services are up on your machine, use postman/curl with the following url - 
+http://localhost:7002/trips/medallions/67C2B72EB78E36BF7A24B7D432686767,91EDB0A9EEFD7D9169432897F12E4E8C/date/2013-12-30
+
+The API response is an array of cab trip summaries. There is one entry for each medallion and the entry contains the medallion number, the total rides, and the details of all rides (as an array).
+
 # Project Structure Advantages
 The API project is a multi-module Spring boot project consisting of 4 modules.
 
