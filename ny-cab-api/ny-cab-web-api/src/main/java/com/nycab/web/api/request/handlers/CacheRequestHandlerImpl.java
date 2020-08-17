@@ -38,4 +38,15 @@ public class CacheRequestHandlerImpl implements CacheRequestHandlerIntf {
 
         return Arrays.asList(trips);
     }
+
+    @Override
+    public Boolean flushCache() {
+        return (Boolean) uriHelper.postToUri(
+                UriRequest.of(cacheApiUrl,
+                        ApplicationConstants.CACHE_FLUSH_CACHE,
+                        boolean.class,
+                        HttpMethod.POST,
+                        Optional.empty())).getBody();
+
+    }
 }

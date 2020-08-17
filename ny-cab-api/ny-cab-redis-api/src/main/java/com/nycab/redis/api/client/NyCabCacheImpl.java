@@ -65,13 +65,14 @@ public class NyCabCacheImpl implements NyCabCacheIntf {
     }
 
     @Override
-    public void clearCache() {
+    public boolean clearCache() {
         JedisShardInfo jedisShardInfo = new JedisShardInfo(redisHost, redisPort);
         jedisShardInfo.setUser("default");
         jedisShardInfo.setPassword(redisPassword);
         Jedis jedis =  new Jedis(jedisShardInfo);
         jedis.connect();
         jedis.flushAll();
+        return true;
     }
 
     private List<CabTripDataResponse> getByMedallionAndDateFromDb(String medallions, String date) {

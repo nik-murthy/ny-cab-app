@@ -7,5 +7,5 @@ import java.util.List;
 public interface NyCabCacheIntf {
 
     List<CabTripDataResponse> getByMedallionAndDate(String medallions, String date);
-    void clearCache();
+    boolean clearCache();
 }

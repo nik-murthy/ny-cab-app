@@ -32,6 +32,11 @@ public class NyCabWebFacadeImpl implements NyCabWebFacadeIntf {
         return createResponseObj(cacheRequestHandlerIntf.getByMedallionsAndDate(medallions, date));
     }
 
+    @Override
+    public Boolean flushCache() {
+        return cacheRequestHandlerIntf.flushCache();
+    }
+
     private CabTripSummaryCollection createResponseObj(List<CabTripDataResponse> cabTripDataResponses) {
         Map<String, List<CabTripDataResponse>> cabTripMap = cabTripDataResponses.stream()
                 .collect(Collectors.groupingBy(CabTripDataResponse::getMedallion));

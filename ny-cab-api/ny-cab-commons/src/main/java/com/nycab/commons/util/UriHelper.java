@@ -36,6 +36,24 @@ public class UriHelper {
                 uriRequest.getResponseType());
     }
 
+    public ResponseEntity<?> postToUri(final UriRequest uriRequest) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(uriRequest.getUrl() +uriRequest.getUri());
+        if (uriRequest.getParams().isPresent()) {
+            populateParams(builder, uriRequest.getParams().get());
+        }
+        return restTemplate.exchange(builder.toUriString(),
+                uriRequest.getHttpMethod(),
+                entity,
+                uriRequest.getResponseType());
+    }
+
     private void populateParams(final UriComponentsBuilder builder, final Map<String, Object> params) {
         params.forEach((paramName, paramValue) -> builder.queryParam(paramName, paramValue));
     }

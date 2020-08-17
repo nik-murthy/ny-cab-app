@@ -25,7 +25,12 @@ public class NyCabWebController {
     @GetMapping(value = ApplicationConstants.WEB_GET_TRIPS_SUMMARY)
     public ResponseEntity<CabTripSummaryCollection> getCabTripsSummary(@PathVariable("medallions") List<String> medallions,
                                                                        @PathVariable("date") String date) {
-        return ResponseEntity.ok(nyCabWebFacadeIntf.getCabTripsSummaryFromDb(medallions, date));
+        return ResponseEntity.ok(nyCabWebFacadeIntf.getCabTripsSummary(medallions, date));
+    }
+
+    @PostMapping(value = ApplicationConstants.WEB_FLUSH_CACHE)
+    public ResponseEntity<Boolean> flushCache() {
+        return ResponseEntity.ok(true);
     }
 
     @ExceptionHandler

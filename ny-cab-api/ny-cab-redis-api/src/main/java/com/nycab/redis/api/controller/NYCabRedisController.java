@@ -24,7 +24,7 @@ public class NYCabRedisController {
     }
 
     @PostMapping(value = ApplicationConstants.CACHE_FLUSH_CACHE)
-    public void clearCache() {
-        nyCabCacheIntf.clearCache();
+    public Boolean clearCache() {
+        return nyCabCacheIntf.clearCache();
     }
 }

@@ -8,4 +8,6 @@ public interface CacheRequestHandlerIntf {
 
     List<CabTripDataResponse> getByMedallionsAndDate(List<String> medallions, String date);
 
+    Boolean flushCache();
+
 }
